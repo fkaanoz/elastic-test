@@ -4,7 +4,6 @@ import fs from "fs";
 const client = new Client({
   node: "http://localhost:9200",
 });
-
 async function createIndex() {
   await client.indices.create({
     index: "posts_4",
@@ -26,8 +25,9 @@ async function createIndex() {
     },
   });
 }
-
+console.log("---- create index -----");
 createIndex();
+console.log("---- create index (f) -----");
 
 let data = [];
 let authors = [
@@ -144,15 +144,20 @@ function prepareData() {
     });
   }
 }
+
+console.log("---- prepare data (s) -----");
 prepareData();
+console.log("---- prepare data (f) -----");
 
 async function bulk() {
   const operations = data.flatMap((doc) => [
-    { index: { _index: "posts" } },
+    { index: { _index: "posts_4" } },
     doc,
   ]);
 
   const bulkResponse = await client.bulk({ refresh: true, operations });
 }
 
-//bulk();
+console.log("---- bulk data (s) -----");
+bulk();
+console.log("---- bulk data (f) -----");
