@@ -7,7 +7,7 @@ const client = new Client({
 
 async function createIndex() {
   await client.indices.create({
-    index: "posts_3",
+    index: "posts_4",
     mappings: {
       properties: {
         title: {
@@ -28,7 +28,6 @@ async function createIndex() {
 }
 
 createIndex();
-console.log("after create index");
 
 let data = [];
 let authors = [
@@ -122,20 +121,18 @@ function prepareData() {
       return e.trim();
     });
 
-  let b = book.concat(book).concat(book).concat(book);
-  b = b.concat(b).concat(b).concat(b);
-  b = b.concat(b).concat(b).concat(b);
-
-  console.log("length of b", b.length);
+  let b = [...book, ...book, ...book, ...book];
+  b = [...b, ...b, ...b];
+  b = [...b, ...b, ...b, ...b];
 
   b.sort(() => Math.random() - 0.5);
 
-  for (let index = 0; index < 750_000; index++) {
-    const rand1 = parseInt(Math.random() * 750_000);
-    const rand2 = parseInt(Math.random() * 750_000);
-    const rand3 = parseInt(Math.random() * 750_000);
-    const rand4 = parseInt(Math.random() * 750_000);
-    const rand5 = parseInt(Math.random() * 750_000);
+  for (let index = 0; index < 915_000; index++) {
+    const rand1 = parseInt(Math.random() * 915_000);
+    const rand2 = parseInt(Math.random() * 915_000);
+    const rand3 = parseInt(Math.random() * 915_000);
+    const rand4 = parseInt(Math.random() * 915_000);
+    const rand5 = parseInt(Math.random() * 915_000);
 
     const rand6 = parseInt(Math.random() * 70);
 
@@ -158,4 +155,4 @@ async function bulk() {
   const bulkResponse = await client.bulk({ refresh: true, operations });
 }
 
-bulk();
+//bulk();
