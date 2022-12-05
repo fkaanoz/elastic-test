@@ -7,17 +7,20 @@ const client = new Client({
 
 async function createIndex() {
   await client.indices.create({
-    index: "posts_2",
+    index: "posts_3",
     mappings: {
       properties: {
         title: {
           type: "text",
+          index: true,
         },
         body: {
           type: "text",
+          index: true,
         },
         writer: {
           type: "text",
+          index: true,
         },
       },
     },
@@ -119,16 +122,20 @@ function prepareData() {
       return e.trim();
     });
 
-  const b = book.concat(book).concat(book).concat(book);
+  let b = book.concat(book).concat(book).concat(book);
+  b = b.concat(b).concat(b).concat(b);
+  b = b.concat(b).concat(b).concat(b);
+
+  console.log("length of b", b.length);
 
   b.sort(() => Math.random() - 0.5);
 
-  for (let index = 0; index < 76000; index++) {
-    const rand1 = parseInt(Math.random() * 75_000);
-    const rand2 = parseInt(Math.random() * 75_000);
-    const rand3 = parseInt(Math.random() * 75_000);
-    const rand4 = parseInt(Math.random() * 75_000);
-    const rand5 = parseInt(Math.random() * 75_000);
+  for (let index = 0; index < 750_000; index++) {
+    const rand1 = parseInt(Math.random() * 750_000);
+    const rand2 = parseInt(Math.random() * 750_000);
+    const rand3 = parseInt(Math.random() * 750_000);
+    const rand4 = parseInt(Math.random() * 750_000);
+    const rand5 = parseInt(Math.random() * 750_000);
 
     const rand6 = parseInt(Math.random() * 70);
 
