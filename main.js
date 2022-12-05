@@ -152,3 +152,5 @@ async function bulk() {
 
   const bulkResponse = await client.bulk({ refresh: true, operations });
 }
+
+bulk();
