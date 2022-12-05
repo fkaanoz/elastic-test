@@ -7,27 +7,24 @@ const client = new Client({
 
 async function createIndex() {
   await client.indices.create({
-    index: "posts",
+    index: "posts_2",
     mappings: {
       properties: {
         title: {
           type: "text",
-          index: true,
         },
         body: {
           type: "text",
-          index: true,
         },
         writer: {
           type: "text",
-          index: true,
         },
       },
     },
   });
 }
 
-//createIndex();
+createIndex();
 
 let data = [];
 let authors = [

@@ -1,0 +1,9 @@
+curl -XPOST -H "Content-Type: application/json" http://localhost:9200/posts/_search -d
+'{
+  "query": {
+    "multi_match" : {
+      "query":    "this is a test", 
+      "fields": [ "body", "title" ] 
+    }
+  }
+}'
