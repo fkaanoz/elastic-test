@@ -25,6 +25,7 @@ async function createIndex() {
 }
 
 createIndex();
+console.log("after create index");
 
 let data = [];
 let authors = [
