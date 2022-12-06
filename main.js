@@ -4,9 +4,11 @@ import fs from "fs";
 const client = new Client({
   node: "http://localhost:9200",
 });
+
+console.log("starting");
 async function createIndex() {
   await client.indices.create({
-    index: "posts_4",
+    index: "posts_5",
     mappings: {
       properties: {
         title: {
@@ -154,8 +156,45 @@ async function bulk() {
     { index: { _index: "posts_4" } },
     doc,
   ]);
+  operations.slice(0, 100_000);
 
-  const bulkResponse = await client.bulk({ refresh: true, operations });
+  await client.bulk({
+    refresh: true,
+    operations: operations.slice(0, 100_000),
+  });
+  await client.bulk({
+    refresh: true,
+    operations: operations.slice(100_000, 200_000),
+  });
+  await client.bulk({
+    refresh: true,
+    operations: operations.slice(200_000, 300_000),
+  });
+  await client.bulk({
+    refresh: true,
+    operations: operations.slice(300_000, 400_000),
+  });
+  await client.bulk({
+    refresh: true,
+    operations: operations.slice(400_000, 500_000),
+  });
+  await client.bulk({
+    refresh: true,
+    operations: operations.slice(500_000, 600_000),
+  });
+  await client.bulk({
+    refresh: true,
+    operations: operations.slice(600_000, 700_000),
+  });
+  await client.bulk({
+    refresh: true,
+    operations: operations.slice(700_000, 800_000),
+  });
+
+  await client.bulk({
+    refresh: true,
+    operations: operations.slice(800_000, 900_000),
+  });
 }
 
 console.log("---- bulk data (s) -----");
