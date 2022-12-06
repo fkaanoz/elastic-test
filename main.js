@@ -8,7 +8,7 @@ const client = new Client({
 console.log("starting");
 async function createIndex() {
   await client.indices.create({
-    index: "posts_5",
+    index: "posts_7",
     mappings: {
       properties: {
         title: {
@@ -157,46 +157,49 @@ async function bulk() {
     doc,
   ]);
   operations.slice(0, 100_000);
+  try {
+    await client.bulk({
+      refresh: true,
+      operations: operations.slice(0, 100_000),
+    });
+    await client.bulk({
+      refresh: true,
+      operations: operations.slice(100_000, 200_000),
+    });
+    await client.bulk({
+      refresh: true,
+      operations: operations.slice(200_000, 300_000),
+    });
+    await client.bulk({
+      refresh: true,
+      operations: operations.slice(300_000, 400_000),
+    });
+    await client.bulk({
+      refresh: true,
+      operations: operations.slice(400_000, 500_000),
+    });
+    await client.bulk({
+      refresh: true,
+      operations: operations.slice(500_000, 600_000),
+    });
+    await client.bulk({
+      refresh: true,
+      operations: operations.slice(600_000, 700_000),
+    });
+    await client.bulk({
+      refresh: true,
+      operations: operations.slice(700_000, 800_000),
+    });
 
-  await client.bulk({
-    refresh: true,
-    operations: operations.slice(0, 100_000),
-  });
-  await client.bulk({
-    refresh: true,
-    operations: operations.slice(100_000, 200_000),
-  });
-  await client.bulk({
-    refresh: true,
-    operations: operations.slice(200_000, 300_000),
-  });
-  await client.bulk({
-    refresh: true,
-    operations: operations.slice(300_000, 400_000),
-  });
-  await client.bulk({
-    refresh: true,
-    operations: operations.slice(400_000, 500_000),
-  });
-  await client.bulk({
-    refresh: true,
-    operations: operations.slice(500_000, 600_000),
-  });
-  await client.bulk({
-    refresh: true,
-    operations: operations.slice(600_000, 700_000),
-  });
-  await client.bulk({
-    refresh: true,
-    operations: operations.slice(700_000, 800_000),
-  });
-
-  await client.bulk({
-    refresh: true,
-    operations: operations.slice(800_000, 900_000),
-  });
+    await client.bulk({
+      refresh: true,
+      operations: operations.slice(800_000, 900_000),
+    });
+  } catch (error) {}
 }
 
 console.log("---- bulk data (s) -----");
-bulk();
+bulk().catch((e) => {
+  console.log("error", e);
+});
 console.log("---- bulk data (f) -----");
